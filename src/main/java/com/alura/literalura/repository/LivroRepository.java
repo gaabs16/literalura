@@ -8,12 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface LivroRepository extends JpaRepository<Livro, Long> {
-    @Query("SELECT l.titulo, l.autor.nome, l.idioma) FROM Livro l WHERE l.titulo = ?1")
-    List<LivroDTO> findByTitulo();
-
-    @Query("SELECT l.titulo, l.autor.nome, l.idioma FROM Livro l")
-    List<LivroDTO> findAllLivros();
-
-    @Query("SELECT l.titulo, l.autor.nome, l.idioma FROM Livro l WHERE l.idioma = ?1")
-    List<LivroDTO> findByIdioma(String idioma);
+    @Query("SELECT t from title where t.title ILIKE %:titulo%")
+    List<LivroDTO> findByTitulo(String titulo);
 }

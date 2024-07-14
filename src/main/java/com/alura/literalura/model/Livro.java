@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Map;
-
 @Entity
 @Data
 @Builder
@@ -17,31 +14,25 @@ import java.util.Map;
 @Table(name = "books")
 public class Livro {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
     private String title;
+
+    @Column
     private String author;
+
+    @Column
     private String language;
-    private Double downloads;
+
+    @Column
+    private double downloads;
+
+    @Column
     private String birthYear;
-    private String deathYear;
 
-    @ElementCollection
-    private List<String> subjects;
+    @Column
+    private String dearthYear;
 
-    @ElementCollection
-    private List<String> languages;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Autor> autor;
-
-    @ElementCollection
-    @CollectionTable(name = "book_languages", joinColumns = @JoinColumn(name = "book_id"))
-    @Column(name = "language")
-    private List<String> translators;
-
-    @ElementCollection
-    @MapKeyColumn(name="format")
-    @Column(name="url")
-    @CollectionTable(name="book_format", joinColumns=@JoinColumn(name="book_id"))
-    private Map<String, String> formats;
 }

@@ -13,13 +13,24 @@ import java.net.http.HttpResponse.BodyHandlers;
 @Service
 public class GutenApi {
 
-    public String obterDados(String address) throws IOException, InterruptedException{
+    private final String ENDERECO = "https://gutendex.com/books/?search=";
+
+    public String obterDados(String endereco) throws IOException, InterruptedException{
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(address))
+                .uri(URI.create(ENDERECO + endereco))
                 .build();
-        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-        var result = response.body();
-        return  result;
+        HttpResponse<String> response = null;
+        try {
+            response = client
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        String json = response.body();
+        return json;
     }
 }
