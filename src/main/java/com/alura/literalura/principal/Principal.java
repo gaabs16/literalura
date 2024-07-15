@@ -1,13 +1,14 @@
 package com.alura.literalura.principal;
 
 import com.alura.literalura.dto.LivroDTO;
+import com.alura.literalura.dto.Resposta;
+import com.alura.literalura.model.Autor;
 import com.alura.literalura.model.DadosAutor;
 import com.alura.literalura.model.DadosLivro;
+import com.alura.literalura.model.Livro;
 import com.alura.literalura.service.ConverteDados;
 import com.alura.literalura.service.GutenApi;
 import com.alura.literalura.service.LivroService;
-import com.alura.literalura.model.Livro;
-import com.alura.literalura.model.Autor;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -71,12 +72,16 @@ public class Principal {
         String titulo = leitura.nextLine();
         String modifiedTitle = titulo.replace(" ", "+");
         String response = this.gutenApi.obterDados(modifiedTitle);
-        DadosLivro dadosLivro = conversor.obterDadosLivro(response, DadosLivro.class);
+//        Resposta resposta = conversor.obterDados(response, Resposta.class);
         DadosAutor dadosAutor = conversor.obterDadosAutor(response, DadosAutor.class);
+        DadosLivro dadosLivro = conversor.obterDadosLivro(response, DadosLivro.class);
         if (dadosLivro != null && dadosAutor != null) {
 
-            Livro livro = new Livro(dadosLivro);
             Autor autor = new Autor(dadosAutor);
+            Livro livro = new Livro(dadosLivro);
+
+            System.out.println("livro : " + livro.getAuthor());
+            System.out.println("autor : " + autor.getBirthYear());
 
         } else {
             System.out.println("Não foi possível obter dados válidos do JSON.");

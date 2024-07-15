@@ -1,44 +1,36 @@
 package com.alura.literalura.model;
 
+import com.alura.literalura.dto.AutorDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Locale;
+
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "Livros")
+@Table(name = "livros")
 public class Livro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String title;
-
-    @Column
-    private String author;
-
-    @Column
+    @ManyToOne
+    private Autor author;
     private String language;
+    private int downloads;
 
-    @Column
-    private double downloads;
-
-    @Column
-    private String birthYear;
-
-    @Column
-    private String dearthYear;
+    public Livro(){}
 
     public Livro(DadosLivro dados) {
         this.title = dados.title();
-        this.language = String.join(",", dados.language());
+        this.language = dados.language().getFirst().toLowerCase();
         this.downloads = dados.downloads();
-        this.author = dados.author();
+        this.author = new Autor(dados.author().get(0));
     }
 }
