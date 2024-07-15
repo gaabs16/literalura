@@ -2,7 +2,7 @@ package com.alura.literalura.dto;
 
 import com.alura.literalura.model.Livro;
 
-public record LivroDTO (Long id, String title, String author, String language, double downloads, String birthYear, String deathYear){
+public record LivroDTO (Long id,String title,String author,String language ,double downloads,String birthYear, String deathYear){
     public Livro getEntity(){
         Livro livro = new Livro();
         livro.setId(id);

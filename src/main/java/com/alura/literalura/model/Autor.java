@@ -13,7 +13,12 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String nationality;
-    private Integer birthYear;
-    private Integer deathYear;
+    private String birthYear;
+    private String deathYear;
+
+    public Autor(DadosAutor dados) {
+        this.name = String.join(",", dados.name());
+        this.birthYear = dados.birthYear();
+        this.deathYear = dados.deathYear();
+    }
 }

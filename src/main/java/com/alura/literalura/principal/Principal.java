@@ -1,13 +1,15 @@
 package com.alura.literalura.principal;
 
-import com.alura.literalura.dto.AutorDTO;
 import com.alura.literalura.dto.LivroDTO;
+import com.alura.literalura.model.DadosAutor;
+import com.alura.literalura.model.DadosLivro;
 import com.alura.literalura.service.ConverteDados;
 import com.alura.literalura.service.GutenApi;
 import com.alura.literalura.service.LivroService;
+import com.alura.literalura.model.Livro;
+import com.alura.literalura.model.Autor;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -54,7 +56,7 @@ public class Principal {
 //                case 5:
 //                    listarLivrosPorIdioma();
 //                    break;
-                case 6:
+                case 0:
                     System.out.println("Saindo...");
                     System.exit(0);
                 default:
@@ -69,8 +71,17 @@ public class Principal {
         String titulo = leitura.nextLine();
         String modifiedTitle = titulo.replace(" ", "+");
         String response = this.gutenApi.obterDados(modifiedTitle);
-        LivroDTO dados = conversor.obterDados(response, LivroDTO.class);
-        this.salvarLivro(dados);
+        DadosLivro dadosLivro = conversor.obterDadosLivro(response, DadosLivro.class);
+        DadosAutor dadosAutor = conversor.obterDadosAutor(response, DadosAutor.class);
+        if (dadosLivro != null && dadosAutor != null) {
+
+            Livro livro = new Livro(dadosLivro);
+            Autor autor = new Autor(dadosAutor);
+
+        } else {
+            System.out.println("Não foi possível obter dados válidos do JSON.");
+        }
+//        this.salvarLivro(dados);
     }
 
 //    private void buscarLivroPeloTituloDoBanco() {

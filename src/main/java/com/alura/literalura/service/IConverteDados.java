@@ -1,5 +1,6 @@
 package com.alura.literalura.service;
 
 public interface IConverteDados {
-    <T> T obterDados(String json, Class<T> classe);
+    <T> T obterDadosLivro(String json, Class<T> classe);
+    <T> T obterDadosAutor(String json, Class<T> classe);
 }

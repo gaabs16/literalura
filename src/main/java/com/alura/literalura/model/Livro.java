@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "books")
+@Table(name = "Livros")
 public class Livro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,4 +35,10 @@ public class Livro {
     @Column
     private String dearthYear;
 
+    public Livro(DadosLivro dados) {
+        this.title = dados.title();
+        this.language = String.join(",", dados.language());
+        this.downloads = dados.downloads();
+        this.author = dados.author();
+    }
 }
