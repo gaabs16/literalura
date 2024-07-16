@@ -12,8 +12,6 @@ public class ConverteDados implements  IConverteDados{
         try {
             JsonNode root = mapper.readTree(json);
             JsonNode resultsNode = root.path("results").get(0);
-
-            System.out.println(resultsNode);
             return mapper.readValue(resultsNode.toString(), classe);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -25,8 +23,6 @@ public class ConverteDados implements  IConverteDados{
         try {
             JsonNode root = mapper.readTree(json);
             JsonNode resultsNode = root.path("results").get(0).path("authors").get(0);
-
-            System.out.println(resultsNode);
             return mapper.readValue(resultsNode.toString(), classe);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

@@ -20,7 +20,7 @@ public class Livro {
     private Long id;
 
     private String title;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Autor author;
     private String language;
     private int downloads;
@@ -32,5 +32,15 @@ public class Livro {
         this.language = dados.language().getFirst().toLowerCase();
         this.downloads = dados.downloads();
         this.author = new Autor(dados.author().get(0));
+    }
+
+    @Override
+    public String toString() {
+        return  "**********************" + '\n' +
+                "Livro: " + title + '\n' +
+                "Autor: " + author.getName() + '\n' +
+                "Idiomas: " + language + '\n' +
+                "Downloads: " + downloads + '\n' +
+                "**********************";
     }
 }

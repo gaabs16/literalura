@@ -8,6 +8,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record DadosAutor(
         @JsonAlias("name") String name,
-        @JsonAlias("birthYear") String birthYear,
-        @JsonAlias("deathYear") String deathYear
+        @JsonAlias("birth_year") String birthYear,
+        @JsonAlias("death_year") String deathYear
 ) {}
